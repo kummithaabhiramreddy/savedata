@@ -449,9 +449,13 @@
             filesData = [];
         }
 
+        const API_BASE = (window.location.protocol === 'file:' || window.location.hostname === '127.0.0.1' || window.location.hostname === 'localhost') 
+            ? 'http://localhost:3000/api' 
+            : '/api';
+
         async function loadFiles() {
             try {
-                const response = await fetch(`/api/files?email=${currentUser}`);
+                const response = await fetch(`${API_BASE}/files?email=${currentUser}`);
                 if (response.ok) {
                     filesData = await response.json();
                 } else {
@@ -468,7 +472,7 @@
 
         async function saveFileToServer(file) {
             try {
-                const response = await fetch('/api/files', {
+                const response = await fetch(`${API_BASE}/files`, {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify({ email: currentUser, file })
@@ -554,7 +558,7 @@
 
         async function deleteFile(id) {
             try {
-                const response = await fetch(`/api/files/${id}`, { method: 'DELETE' });
+                const response = await fetch(`${API_BASE}/files/${id}`, { method: 'DELETE' });
                 if (response.ok) {
                     filesData = filesData.filter(f => f.id !== id);
                     renderFiles();
