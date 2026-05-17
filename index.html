@@ -606,7 +606,31 @@
             }
             
             if (query) {
-                filtered = filtered.filter(f => f.name.toLowerCase().includes(query));
+                filtered = filtered.filter(f => f.name.toLowerCase().includes(query) || f.folder.toLowerCase().includes(query));
+            }
+            
+            const foldersSection = document.getElementById('foldersSection');
+            const foldersGrid = document.getElementById('foldersGrid');
+            
+            if (currentFilter === 'all' && !query) {
+                const uniqueFolders = [...new Set(filtered.map(f => f.folder))].filter(f => f !== 'Root');
+                if (uniqueFolders.length > 0) {
+                    foldersSection.style.display = 'block';
+                    foldersGrid.innerHTML = uniqueFolders.map(folderName => {
+                        const folderFiles = filtered.filter(f => f.folder === folderName);
+                        return `
+                            <div class="folder-card" onclick="setSearch('${folderName.replace(/'/g, "\\'")}')">
+                                <div class="folder-icon">📁</div>
+                                <div class="folder-name">${folderName}</div>
+                                <div class="folder-meta">${folderFiles.length} files</div>
+                            </div>
+                        `;
+                    }).join('');
+                } else {
+                    foldersSection.style.display = 'none';
+                }
+            } else {
+                foldersSection.style.display = 'none';
             }
             
             if (filtered.length === 0) {
@@ -636,6 +660,11 @@
                     </tr>
                 `).join('');
             }
+        }
+        
+        function setSearch(val) {
+            searchInput.value = val;
+            renderFiles();
         }
 
         function updateStorage() {
