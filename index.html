@@ -237,6 +237,40 @@
             box-shadow: 0 10px 30px rgba(99, 102, 241, 0.2);
         }
         .toast.show { transform: translateX(-50%) translateY(0); }
+
+        /* Mobile Responsiveness */
+        @media (max-width: 768px) {
+            #appLayout { flex-direction: column; }
+            .sidebar { 
+                width: 100%; height: auto; padding: 12px 20px;
+                border-right: none; border-bottom: 1px solid var(--border-color);
+                flex-direction: row; align-items: center; justify-content: space-between;
+                z-index: 20; background: var(--bg-surface); backdrop-filter: blur(20px);
+            }
+            .logo-area { margin-bottom: 0; }
+            .logo-text { display: none; }
+            .nav-menu { flex-direction: row; gap: 5px; flex: 0; }
+            .nav-item { padding: 8px 12px; font-size: 0; }
+            .nav-item .nav-icon { margin-right: 0; font-size: 20px; }
+            .storage-widget { display: none; }
+            
+            .header { height: auto; padding: 15px 20px; flex-direction: column; gap: 12px; align-items: stretch; z-index: 10; }
+            .search-bar { width: 100%; }
+            .header-actions { justify-content: space-between; width: 100%; gap: 10px; }
+            .btn-upload { padding: 10px 5px; font-size: 12px; flex: 1; justify-content: center; }
+            .profile-btn { padding: 0; }
+            .profile-name { display: none; }
+            
+            .content-scroll { padding: 20px; padding-bottom: 80px; }
+            .folders-grid { grid-template-columns: repeat(auto-fill, minmax(140px, 1fr)); gap: 12px; margin-bottom: 24px; }
+            .folder-card { padding: 16px; }
+            .files-table { display: block; overflow-x: auto; white-space: nowrap; }
+            
+            .auth-card { padding: 30px 20px; width: 90%; }
+            .auth-title { font-size: 24px; }
+            
+            .toast { width: 90%; text-align: center; font-size: 12px; padding: 12px; }
+        }
     </style>
 </head>
 <body>
