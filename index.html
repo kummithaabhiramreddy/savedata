@@ -322,9 +322,9 @@
             <div class="storage-widget">
                 <div class="storage-title">Storage Used</div>
                 <div class="progress-bar">
-                    <div class="progress-fill" id="storageFill"></div>
+                    <div class="progress-fill" id="storageFill" style="width: 100%;"></div>
                 </div>
-                <div class="storage-text"><span id="storageUsed">0 MB</span> / 50 MB</div>
+                <div class="storage-text"><span id="storageUsed">0 MB</span> / Unlimited</div>
             </div>
         </aside>
 
@@ -385,9 +385,6 @@
         let currentUser = null;
         let filesData = []; // { id, name, size, type, date, dataUrl, folder }
         let currentFilter = 'all';
-
-        // Constants
-        const MAX_STORAGE = 50 * 1024 * 1024; // 50MB for local demo
 
         // DOM Elements
         const authScreen = document.getElementById('authScreen');
@@ -644,10 +641,6 @@
         function updateStorage() {
             const totalSize = filesData.reduce((acc, file) => acc + file.size, 0);
             document.getElementById('storageUsed').textContent = formatSize(totalSize);
-            
-            let percent = (totalSize / MAX_STORAGE) * 100;
-            if(percent > 100) percent = 100;
-            document.getElementById('storageFill').style.width = `${percent}%`;
         }
 
         function showToast(msg) {
